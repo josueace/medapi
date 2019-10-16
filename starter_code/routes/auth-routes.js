@@ -6,8 +6,10 @@ const mongoose     = require('mongoose');
 
 // User model
 const User = require("../models/user");
-const Category = require("../models/category");
-const Blog = require("../models/blog");
+const DocDoc = require("../models/doctor");
+const HospitalDoc = require("../models/hospital");
+const Visit = require("../models/visit");
+const Lab = require("../models/lab");
 
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -127,6 +129,139 @@ authRoutes.get('/loggedin', (req, res, next) => {
         return;
     }
     res.status(403).json({ message: 'Unauthorized' });
+});
+
+
+
+ 
+
+
+
+authRoutes.get('/doctor/:user', (req, res, next) => {
+  DocDoc.find({"user":req.params.user},'name speciality city state -_id')
+
+  .then(list => {
+    res.json(list);
+  })
+  .catch(error => next(error))
+});
+
+authRoutes.get('/hospital/:user', (req, res, next) => {
+  HospitalDoc.find({"user":req.params.user},'name phone city state -_id')
+  .then(list => {
+    res.json(list);
+  })
+  .catch(error => next(error))
+});
+
+authRoutes.get('/visit/:user', (req, res, next) => {
+  Visit.find({"user":req.params.user},'visitdate hospital doctor reazon diagnosis -_id')
+  .then(list => {
+    res.json(list);
+  })
+  .catch(error => next(error))
+});
+
+authRoutes.get('/lab/:user', (req, res, next) => {
+  Lab.find({"user":req.params.user},'labdate name  results  -_id')
+  .then(list => {
+    res.json(list);
+  })
+  .catch(error => next(error))
+});
+
+authRoutes.post('/hospital', (req, res, next) => {
+  const hospital = new HospitalDoc({
+    name: req.body.name,
+    phone: req.body.phone,
+    city: req.body.city,
+    state: req.body.state,
+    user: "pedro"
+  });
+
+  hospital.save()
+  .then(hospital => {
+    res.json({
+      message: 'New hospital created!',
+      id: hospital._id
+    });
+  })
+  .catch(error => next(error))
+});
+
+authRoutes.post('/doctor', (req, res, next) => {
+  const doctor = new DocDoc({
+    name: req.body.name,
+    speciality: req.body.speciality,
+    city: req.body.city,
+    state: req.body.state,
+    user: "pedro"
+  });
+  
+  doctor.save()
+  .then(doctor => {
+    res.json({
+      message: 'New doctor created!',
+      id: doctor._id
+    });
+  })
+  .catch(error => next(error))
+});
+
+authRoutes.post('/visit', (req, res, next) => {
+  const visit = new Visit({
+    visitdate: req.body.visitdate,
+    hospital: req.body.hospital,
+    doctor: req.body.doctor,
+    reazon: req.body.reazon,
+    diagnosis: req.body.diagnosis,
+    user: "pedro"
+  });
+  
+  visit.save()
+  .then(doctor => {
+    res.json({
+      message: 'New visit created!',
+      id: visit._id
+    });
+  })
+  .catch(error => next(error))
+});
+
+authRoutes.post('/lab', (req, res, next) => {
+  const lab = new Lab({
+    labdate: req.body.labdate,
+    name: req.body.name,
+    results: req.body.results,
+    user: "pedro"
+  });
+  
+  lab.save()
+  .then(lab => {
+    res.json({
+      message: 'New lab created!',
+      id: lab._id
+    });
+  })
+  .catch(error => next(error))
+});
+
+
+authRoutes.post('/deldoctor', (req, res, next) => {
+  
+ DocDoc.findOneAndRemove({name: req.body.name	}, ()=>{});
+  
+});
+authRoutes.post('/delvisit', (req, res, next) => {
+  
+ Visit.findOneAndRemove({visitdate: req.body.visitdate	}, ()=>{});
+  
+});
+
+authRoutes.post('/dellab', (req, res, next) => {
+  
+ Lab.findOneAndRemove({labdate: req.body.labdate	}, ()=>{});
+  
 });
 
 
