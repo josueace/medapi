@@ -35,13 +35,10 @@ const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
 const app = express();
-const cors = require('cors');
-
-app.use(cors());
 
 app.use(cors({
   credentials: true,
-  origin: ['http://localhost:3000']
+  origin: ['https://medicrecord.herokuapp.com']
 }));
 
 // Middleware Setup
