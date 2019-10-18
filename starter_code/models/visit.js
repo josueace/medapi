@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
     type: String,
     default: ''
   },
-  reazon: {
+  reason: {
      type: String,
      default: ''
   },

@@ -1,5 +1,5 @@
 
-const cors = require('cors');
+
 
 require('dotenv').config();
 const flash = require("connect-flash");
@@ -34,12 +34,14 @@ mongoose.Promise = Promise;
 const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
+const cors = require('cors');
 const app = express();
 
 app.use(cors({
   credentials: true,
-  origin: ['https://medicrecord.herokuapp.com']
+  origin: ['https://medicrecord.herokuapp.com','http://localhost:3000']
 }));
+
 
 // Middleware Setup
 app.use(logger('dev'));
