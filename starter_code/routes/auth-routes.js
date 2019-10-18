@@ -281,22 +281,23 @@ authRoutes.post('/lab', (req, res, next) => {
 
 
 authRoutes.post('/deldoctor', (req, res, next) => {  
- DocDoc.findOneAndRemove({name: req.body.name	}, ()=>{});
+  console.log("deleting doctor:"+req.body.name);
+  DocDoc.findOneAndRemove({name: req.body.name	});
 });
 authRoutes.post('/delhospital', (req, res, next) => {  
-  HospitalDoc.findOneAndRemove({name: req.body.name	},()=>{});
+ 
+  console.log("deleting hospital:"+req.body.name);
+  HospitalDoc.findOneAndRemove({name: req.body.name	});
  });
  
 authRoutes.post('/delvisit', (req, res, next) => {
-  y
- Visit.findOneAndRemove({visitdate: req.body.visitdate	}, );
-  
-});
+  console.log("deleting visit:"+req.body.visitdate);
+  Visit.findOneAndRemove({visitdate: req.body.visitdate});
+  });
 
 authRoutes.post('/dellab', (req, res, next) => {
-  
- Lab.findOneAndRemove({labdate: req.body.labdate	}, ()=>{});
-  
+  console.log("deleting lab:"+req.body.labdate);
+  Lab.findOneAndRemove({labdate: req.body.labdate	});
 });
 
 
