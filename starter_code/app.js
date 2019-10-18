@@ -36,10 +36,16 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const cors = require('cors');
 const app = express();
+/*
+app.use(cors({
+  credentials: true,
+  origin: ['http://localhost:3000']
+}));
+*/
 
 app.use(cors({
   credentials: true,
-  origin: ['https://medicrecord.herokuapp.com','http://localhost:3000']
+  origin: 'https://medicrecord.herokuapp.com'
 }));
 
 

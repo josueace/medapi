@@ -282,22 +282,22 @@ authRoutes.post('/lab', (req, res, next) => {
 
 authRoutes.post('/deldoctor', (req, res, next) => {  
   console.log("deleting doctor:"+req.body.name);
-  DocDoc.findOneAndRemove({name: req.body.name	});
+  DocDoc.findOneAndRemove({name: req.body.name	},()=>{} );
 });
 authRoutes.post('/delhospital', (req, res, next) => {  
  
   console.log("deleting hospital:"+req.body.name);
-  HospitalDoc.findOneAndRemove({name: req.body.name	});
+  HospitalDoc.findOneAndRemove({name: req.body.name	},()=>{} );
  });
  
 authRoutes.post('/delvisit', (req, res, next) => {
   console.log("deleting visit:"+req.body.visitdate);
-  Visit.findOneAndRemove({visitdate: req.body.visitdate});
+  Visit.findOneAndRemove({visitdate: req.body.visitdate},()=>{});
   });
 
 authRoutes.post('/dellab', (req, res, next) => {
   console.log("deleting lab:"+req.body.labdate);
-  Lab.findOneAndRemove({labdate: req.body.labdate	});
+  Lab.findOneAndRemove({name: req.body.labdate	},()=>{});
 });
 
 
